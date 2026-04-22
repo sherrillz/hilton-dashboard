@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hilton Sr Distribution Analyst Workspace - Version 2</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Workspace navigation">
+        <div class="brand-lockup">
+          <span class="brand-mark">H</span>
+          <div>
+            <p class="eyebrow">APAC Operations</p>
+            <h1>Distribution Analyst</h1>
+          </div>
+        </div>
+
+        <nav class="nav-list">
+          <a href="#tickets" class="nav-link active">Tickets Center</a>
+          <a href="#current-state" class="nav-link">Current State</a>
+          <a href="#rate-parity" class="nav-link">Rate Parity</a>
+          <a href="#distribution-performance" class="nav-link">Distribution Performance</a>
+          <a href="#revenue-performance" class="nav-link">Revenue Performance</a>
+          <a href="#it-system" class="nav-link">IT System</a>
+          <a href="#procedures" class="nav-link">Procedures</a>
+          <a href="#sql-query" class="nav-link">SQL Query</a>
+          <a href="#links" class="nav-link">Links</a>
+        </nav>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Daily workspace</p>
+            <h2>Hilton Senior Distribution Analyst</h2>
+          </div>
+          <div class="context-strip" aria-label="Workspace context">
+            <span><b id="currentDateLabel">Apr 22, 2026 08:30</b> Local analyst time</span>
+            <span><b>APAC</b> Working market</span>
+          </div>
+        </header>
+
+        <section id="tickets" class="section-block isolated-section">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">First check of the day</p>
+              <h3><span class="title-icon">!</span>Tickets Center</h3>
+            </div>
+            <div class="segmented" role="group" aria-label="Ticket filter">
+              <button class="segment active" data-ticket-filter="all">All</button>
+              <button class="segment" data-ticket-filter="open">Open</button>
+              <button class="segment" data-ticket-filter="in progress">In progress</button>
+              <button class="segment" data-ticket-filter="waiting">Waiting</button>
+              <button class="segment" data-ticket-filter="resolved">Resolved</button>
+            </div>
+          </div>
+          <div class="table-scroll">
+            <table class="ticket-table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Brief description</th>
+                  <th>Channel</th>
+                  <th>Issue type</th>
+                  <th>Open date</th>
+                  <th>In queue time</th>
+                  <th>Priority</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="ticketRows"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="current-state" class="section-block isolated-section">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Current state</p>
+              <h3><span class="title-icon">#</span>Daily distribution snapshot</h3>
+            </div>
+            <span class="muted">No global filters affect this section</span>
+          </div>
+          <div id="kpiGrid" class="kpi-grid"></div>
+        </section>
+
+        <section id="rate-parity" class="section-block isolated-section parity-monitor">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Rate parity control</p>
+              <h3><span class="title-icon">=</span>Rate Parity</h3>
+            </div>
+            <span class="muted">Select an exception to update the rate comparison panel</span>
+          </div>
+
+          <div class="insight-callout" id="parityInsight"></div>
+          <div id="parityKpiGrid" class="kpi-grid"></div>
+
+          <div class="story-grid">
+            <article class="story-card wide-table">
+              <div class="table-header">
+                <h3>Parity exception queue</h3>
+                <div class="segmented" role="group" aria-label="Parity severity filter">
+                  <button class="segment active" data-parity-filter="all">All</button>
+                  <button class="segment" data-parity-filter="critical">Critical</button>
+                  <button class="segment" data-parity-filter="watch">Watch</button>
+                  <button class="segment" data-parity-filter="resolved">Resolved</button>
+                </div>
+              </div>
+              <div class="table-scroll">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Priority</th>
+                      <th>Hotel</th>
+                      <th>Stay date</th>
+                      <th>Channel</th>
+                      <th>Brand.com</th>
+                      <th>Channel</th>
+                      <th>Negotiated</th>
+                      <th>Gap</th>
+                      <th>Root cause</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="parityExceptionRows"></tbody>
+                </table>
+              </div>
+            </article>
+
+            <article class="story-card">
+              <div class="table-header">
+                <h3>Rate comparison panel</h3>
+                <span class="muted" id="selectedParityContext"></span>
+              </div>
+              <div class="table-scroll">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Source</th>
+                      <th>Display rate</th>
+                      <th>Rate basis</th>
+                      <th>Promo applied</th>
+                      <th>Assessment</th>
+                    </tr>
+                  </thead>
+                  <tbody id="rateComparisonRows"></tbody>
+                </table>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="distribution-performance" class="section-block isolated-section">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Channel-specific work surface</p>
+              <h3><span class="title-icon">%</span>Distribution Performance</h3>
+            </div>
+            <span class="muted">Choose one OTA/distribution channel for this section only</span>
+          </div>
+
+          <div id="channelSelector" class="channel-selector" aria-label="Distribution channel selector"></div>
+          <div id="distributionSnapshot" class="kpi-grid"></div>
+
+          <div class="story-grid">
+            <article class="story-card">
+              <div class="table-header">
+                <h3>Channel fees and discounts</h3>
+                <span class="muted">Selected channel cost structure</span>
+              </div>
+              <div id="feeList" class="fee-list"></div>
+            </article>
+
+            <article class="story-card">
+              <div class="table-header">
+                <h3>Hotel and market movement</h3>
+                <span class="muted">Up/down vs week and month</span>
+              </div>
+              <div id="marketMovementList" class="movement-list"></div>
+            </article>
+          </div>
+
+          <article class="story-card">
+            <div class="table-header">
+              <h3>Bookings under selected distribution</h3>
+              <span class="muted">Separate from the general raw booking table</span>
+            </div>
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Booking ID</th>
+                    <th>Hotel</th>
+                    <th>Stay date</th>
+                    <th>OTA member discount</th>
+                    <th>Guest-facing OTA rate</th>
+                    <th>OTA commission</th>
+                    <th>Hotel net before other costs</th>
+                    <th>Effective cost vs original BAR</th>
+                  </tr>
+                </thead>
+                <tbody id="distributionBookingRows"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <section id="revenue-performance" class="section-block isolated-section revenue-performance">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Strategic growth analysis</p>
+              <h3><span class="title-icon">$</span>Revenue Performance</h3>
+            </div>
+            <span class="muted">Target mix: 45% Direct, 30% OTA, 15% GDS, 10% Other</span>
+          </div>
+
+          <div class="insight-callout">
+            OTA share is above target while Direct is below target. Target markers show where the remix should land without separating the comparison into two charts.
+          </div>
+
+          <article class="story-card">
+            <div class="table-header">
+              <h3>Current mix with target markers</h3>
+              <span class="muted">Current bar plus target icon</span>
+            </div>
+            <div id="mixTargetChart" class="target-mix-chart"></div>
+          </article>
+
+          <div class="story-grid">
+            <article class="story-card">
+              <div class="table-header">
+                <h3>Net ADR and Net RevPAR</h3>
+                <span class="muted">Grouped bars aligned by channel</span>
+              </div>
+              <div id="netMetricBars" class="grouped-bars"></div>
+            </article>
+
+            <article class="story-card">
+              <div class="table-header">
+                <h3>Cost of acquisition vs RevPAR</h3>
+                <span class="muted">Bubble size: room nights</span>
+              </div>
+              <div id="costRevparPlot" class="axis-plot" aria-label="Cost of acquisition vs RevPAR"></div>
+            </article>
+          </div>
+
+          <article class="story-card">
+            <div class="table-header">
+              <h3>Channel contribution by date</h3>
+              <span class="muted">Stacked area with selectable channel comparison</span>
+            </div>
+            <div class="chart-toolbar" aria-label="Channel contribution chart controls">
+              <label>
+                Metric
+                <select id="contributionMetric">
+                  <option value="roomNights">Room nights</option>
+                  <option value="revenue">Revenue</option>
+                </select>
+              </label>
+              <label>
+                View
+                <select id="contributionView">
+                  <option value="absolute">Absolute</option>
+                  <option value="share">Share %</option>
+                </select>
+              </label>
+              <div>
+                <span class="field-label">Compare channels</span>
+                <div id="contributionChannelSelector" class="mini-channel-selector" aria-label="Select channels to compare"></div>
+              </div>
+            </div>
+            <div id="dayContribution" class="stacked-area"></div>
+          </article>
+
+          <article class="story-card">
+            <div class="table-header">
+              <h3>Promotion incrementality</h3>
+              <span class="muted">Incremental vs cannibalized demand</span>
+            </div>
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Promotion</th>
+                    <th>Channel</th>
+                    <th>Discount</th>
+                    <th>Incremental</th>
+                    <th>Cannibalized</th>
+                    <th>Readout</th>
+                  </tr>
+                </thead>
+                <tbody id="incrementalityRows"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <section id="it-system" class="section-block isolated-section">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">IT system dashboard</p>
+              <h3><span class="title-icon">~</span>System health</h3>
+            </div>
+            <span class="muted">Latency, last data refresh, message, and ticket action</span>
+          </div>
+          <div id="systemGrid" class="system-grid"></div>
+        </section>
+
+        <section id="procedures" class="section-block isolated-section">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Procedures SharePoint</p>
+              <h3><span class="title-icon">D</span>SOP library</h3>
+            </div>
+            <label class="library-search">
+              Search
+              <input id="procedureSearch" type="search" placeholder="Search SOPs..." />
+            </label>
+          </div>
+          <div id="procedureGrid" class="procedure-library"></div>
+        </section>
+
+        <section id="sql-query" class="section-block isolated-section sql-workbench">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Backend data</p>
+              <h3><span class="title-icon">Q</span>SQL Query</h3>
+            </div>
+            <button id="runSql" class="primary-button">Run query</button>
+          </div>
+          <div class="sql-layout">
+            <textarea id="sqlInput" spellcheck="false">select * from raw_bookings where channel = 'Trip.com'</textarea>
+            <div class="table-scroll result-panel">
+              <table>
+                <thead>
+                  <tr>
+                    <th>booking_id</th>
+                    <th>property</th>
+                    <th>market</th>
+                    <th>channel</th>
+                    <th>room_nights</th>
+                    <th>revenue</th>
+                    <th>status</th>
+                  </tr>
+                </thead>
+                <tbody id="sqlRows"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="links" class="section-block isolated-section">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Workspace launchpad</p>
+              <h3><span class="title-icon">L</span>Links</h3>
+            </div>
+            <span class="muted">Placeholder UX only: real links can be added later</span>
+          </div>
+          <div id="quickLinks" class="quick-link-grid"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
