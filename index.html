@@ -54,6 +54,8 @@ textarea {
   position: sticky;
   top: 0;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
   padding: 24px 20px;
   background: #10243c;
   color: #fff;
@@ -110,6 +112,17 @@ textarea {
   display: grid;
   gap: 4px;
   margin-top: 22px;
+}
+
+.sidebar-signature {
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  color: #d8e5f5;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .nav-link {
@@ -1175,6 +1188,10 @@ textarea {
     height: auto;
   }
 
+  .sidebar-signature {
+    margin-top: 18px;
+  }
+
   .nav-list {
     grid-template-columns: repeat(3, minmax(140px, 1fr));
   }
@@ -1267,6 +1284,8 @@ textarea {
           <a href="#sql-query" class="nav-link">SQL Query</a>
           <a href="#links" class="nav-link">Links</a>
         </nav>
+
+        <div class="sidebar-signature" aria-label="Dashboard owner">Sherrill Z</div>
       </aside>
 
       <main class="workspace">

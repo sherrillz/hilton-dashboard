@@ -47,6 +47,8 @@ textarea {
   position: sticky;
   top: 0;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
   padding: 24px 20px;
   background: #10243c;
   color: #fff;
@@ -103,6 +105,17 @@ textarea {
   display: grid;
   gap: 4px;
   margin-top: 22px;
+}
+
+.sidebar-signature {
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  color: #d8e5f5;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .nav-link {
@@ -1166,6 +1179,10 @@ textarea {
   .sidebar {
     position: static;
     height: auto;
+  }
+
+  .sidebar-signature {
+    margin-top: 18px;
   }
 
   .nav-list {
